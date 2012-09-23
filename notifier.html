@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title></title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      function notify(msg, file, line) {
+        if (typeof file == "undefined" || typeof line == "undefined") {
+          var el = $("<li class='notification in info'> <div class='icon'></div> <div class='content'> <div class='title'>" + msg + "</div></div> </li> ");
+        } else {
+          var el = $("<li class='notification in error'> <div class='icon'></div> <div class='content'> <div class='title'>" + msg + "</div> <div class='message'>" + file + ":" + line + "</div> </div> </li> ");
+        };
+          el.appendTo(".notification-container");
+        setTimeout(function () { el.removeClass("in"); }, 5);
+        setTimeout(function () {
+          el.bind("webkitTransitionEnd transitionend", function(){
+            el.remove()
+          });
+          el.css({
+            "margin-top": -el.outerHeight(true) + 1,
+            "opacity": 0
+          });
+        }, 5000);
+      };
+
+      window.onerror = notify
+      console.log = notify
+
+    });
+  </script>
+  <style type="text/css">
+    body, html, ul, li {
+      margin: 0;
+      padding: 0;
+      font-family: "Lucida Grande";
+    }
+    body {
+      margin-top: 550px;
+      background: url(bg.png);
+    }
+    button {
+      font-size: 30px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+                  0 0 0 1px rgba(0, 0, 0, 0.15),
+                  0 2px 5px rgba(0, 0, 0, 0.2);
+      padding: 15px 20px 10px;
+      color: #333;
+      text-shadow: 0px 1px rgba(255, 255, 255, 1);
+      background: -webkit-linear-gradient(white, #ececec);
+      background: -moz-linear-gradient(white, #ececec);
+      -webkit-transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      width: 280px;
+      margin: 20px auto 0;
+      display: block;
+      font-family: "Consolas";
+    }
+    button:hover {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+                  0 0 0 1px rgba(0, 0, 0, 0.15),
+                  0 5px 20px rgba(0, 0, 0, 0.4);
+    }
+    .notification-container {
+      list-style-type: none;
+      display: inline-block;
+      position: absolute;
+      padding: 20px 18px;
+      width: 400px;
+      overflow: hidden;
+      text-align: right;
+      pointer-events: none;
+    }
+    .notification-container:empty { display: none; }
+
+    .notification-container.top-left { top: 0; left: 0; bottom: 0; }
+    .notification-container.top-right { top: 0; right: 0; bottom: 0; }
+    .notification-container.bottom-right { bottom: 0; right: 0; }
+    .notification-container.bottom-left { bottom: 0; left: 0; }
+
+    .notification {
+      background-color: rgba(0, 0, 0, 0.85);
+      text-align: left;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8),
+                  0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+                  0 0 0 1px rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      position: relative;
+      -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      display: block;
+      margin-bottom: 20px;
+      -webkit-user-select: none;
+      text-shadow: 0px 2px 1px black;
+      right: 0;
+    }
+    .notification:hover {
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.9),
+                  0 0 0 1px red inset,
+                  0 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+    .notification.in {
+      opacity: 0;
+      right: -100%;
+    }
+    .notification.error .icon {
+      float: left;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+    }
+    .notification.info .icon {
+      display: none;
+    }
+
+    .notification.error .icon:before {
+      content: "✖";
+      font-size: 30px;
+      color: red;
+    }
+    .notification.error .content {
+      margin-left: 40px;
+    }
+    .notification .title {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .notification .message {
+      font-size: 12px;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <ul class="notification-container top-right"></ul>
+  <button onclick="undefined();">undefined();</button>
+  <button onclick="(function(){a+})();">syntaxError();</button>
+  <button onclick="console.log('hello world');">console.log();</button>
+</body>
+</html>
