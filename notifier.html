@@ -14,7 +14,7 @@
           var el = $("<li class='notification in error'> <div class='icon'></div> <div class='content'> <div class='title'>" + msg + "</div> <div class='message'>" + file + ":" + line + "</div> </div> </li> ");
         };
           el.appendTo(".notification-container");
-        setTimeout(function () { el.removeClass("in"); }, 5);
+        setTimeout(function () { el.removeClass("in"); }, 10);
         setTimeout(function () {
           el.bind("webkitTransitionEnd mozTransitionEnd oTransitionEnd msTransitionEnd transitionend", function(){
             el.remove()
