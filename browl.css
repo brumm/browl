@@ -1,0 +1,108 @@
+/* browl-container */
+
+.browl-container {
+  list-style-type: none;
+  font-family: "Lucida Grande";
+  font-size: 12px;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 11px 10px;
+  width: 25%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.browl-container:empty        { display: none;         }
+
+.browl-container.top-left     {     top: 0;   left: 0; }
+.browl-container.top-right    {     top: 0;  right: 0; }
+.browl-container.bottom-right {   right: 0; bottom: 0; }
+.browl-container.bottom-left  {    left: 0; bottom: 0; }
+
+/* browl-notification */
+
+.browl-notification {
+  position: relative;
+  display: block;
+  right: 0;
+  padding: 10px 11px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-shadow: 0px 2px 1px black;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  pointer-events: auto;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+.browl-notification:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8),
+              0 0 0 1px white inset,
+              0 0 0 1px black;
+}
+
+.browl-notification + .browl-notification {
+  margin-top: 20px;
+}
+
+/* notification innards */
+
+.browl-notification .icon:empty,
+.browl-notification .title:empty,
+.browl-notification .message:empty { display: none; }
+
+/* icon */
+
+.browl-notification .icon {
+  display: inline-block;
+  width: 10%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 30px;
+}
+
+.browl-notification.error   .icon { color: red;     }
+.browl-notification.info    .icon { color: #538af1; }
+.browl-notification.success .icon { color: #7ad137; }
+
+.browl-notification .icon:not(:empty) + .content {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80%;
+  margin-left: 3px;
+}
+
+/* content */
+
+.browl-notification .content {
+  overflow: hidden;
+}
+
+.browl-notification .title {
+  font-weight: bold;
+}
+
+.browl-notification .title + .message {
+  margin-top: 5px;
+}
+
+.browl-notification .title,
+.browl-notification .message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* transition classes */
+
+.browl-notification.out {
+  opacity: 0;
+}
+
+.top-right .browl-notification.out,
+.bottom-right .browl-notification.out { right: -100%; }
+
+.top-left .browl-notification.out,
+.bottom-left .browl-notification.out  { left: -100%; }
